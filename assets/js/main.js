@@ -1,4 +1,5 @@
-// Crear la clase Producto
+
+// CREAMOS LA CLASE DEL PRODUCTO
 class Producto {
     constructor(id, nombre, marca, precio, imagen, stock) {
         this.id = id;
@@ -10,8 +11,9 @@ class Producto {
     }
 }
 
-// Crear los objetos Producto
+// CREAMOS LOS OBJETOS - PRODUCTOS
 let productos = [
+    //CADA PRODUCTO TIENE LOS SIGUIENTES ATRIBUTOS: ID, NOMBRE, MARCA, PRECIO, IMAGEN, STOCK
     new Producto("#1", "Zapatillas Blancas Modern", "Modern", 45000, "https://i.ibb.co/bQ5t8bR/product-5.jpg", 100),
     new Producto("#2", "Polera Negra Puma Lineal", "Puma", 15000, "https://i.ibb.co/vVpTyBD/product-6.jpg", 100),
     new Producto("#3", "Calcetines HRX varios colores", "HRX", 6000, "https://i.ibb.co/hR5FGwH/product-7.jpg", 100),
@@ -22,7 +24,19 @@ let productos = [
     new Producto("#8", "Buzo Nike Marine Ajustado", "Nike", 25000, "https://i.ibb.co/nRZMs6Y/product-12.jpg", 100),
 ];
 
-// Mostrar los productos en el HTML
+//MENU - AGREGAMOS UNOS ESTILOS AL MENU
+var MenuItems = document.getElementById('MenuItems');
+MenuItems.style.maxHeight = '200px';
+
+function menutoggle() {
+    if (MenuItems.style.maxHeight == '0px') {
+        MenuItems.style.maxHeight = '200px';
+    } else {
+        MenuItems.style.maxHeight = '0px';
+    }
+}
+
+//MOSTRAMOS LOS PRODUCTOS EN EL HTML
 let html = "";
 productos.forEach((producto) => {
     html += `
@@ -37,6 +51,7 @@ productos.forEach((producto) => {
 
 document.getElementById("listaProductos").innerHTML = html;
 
+//CREAMOS LA CLASE CARRITO
 class CarritoCompra {
     constructor() {
         this.productos = []; // Arreglo de productos
@@ -55,7 +70,7 @@ class CarritoCompra {
             imagen
         };
 
-        // Verificar si el producto ya existe en el carrito
+        // Verificamos si el producto ya existe en el carrito
         let existe = this.productos.find((p) => p.id === id);
 
         if (existe) {
@@ -94,6 +109,7 @@ class CarritoCompra {
 
 let carrito = new CarritoCompra();
 
+//AÑADIR CARRITO
 function addCarrito(id, nombre, precio, stock, imagen) {
     carrito.agregarProducto(id, nombre, precio, stock, imagen);
     console.log("Carrito actual:");
@@ -111,6 +127,8 @@ function addCarrito(id, nombre, precio, stock, imagen) {
 
     actualizarCarrito();
 }
+
+//ACTUALIZAR CARRITO
 function actualizarCarrito() {
     let html = "";
     let precioTotal = 0;
@@ -142,7 +160,7 @@ function actualizarCarrito() {
         precioTotal += producto.precio * producto.cantidad;
     });
 
-    // E el botón para vaciar el carrito solo si el carrito no está vacío
+    // Botón para vaciar el carrito solo si el carrito no está vacío
     if (carrito.productos.length > 0) {
         html += `
             <div class="total">
@@ -171,6 +189,7 @@ function actualizarCarrito() {
     document.getElementById("carrito-contenedor").innerHTML = html;
 }
 
+//BAJAR CANTIDAD DE UN PRODUCTO
 function disminuirCantidad(id) {
     let producto = carrito.productos.find((p) => p.id === id);
     if (producto.cantidad > 0) {
@@ -180,6 +199,7 @@ function disminuirCantidad(id) {
     }
 }
 
+//SUBIR CANTIDAD DE UN PRODUCTO
 function aumentarCantidad(id) {
     let producto = carrito.productos.find((p) => p.id === id);
     if (producto.cantidad < producto.stock) {
@@ -189,12 +209,14 @@ function aumentarCantidad(id) {
     }
 }
 
+//FINALIZAR COMPRA
 function finalizar_compra() {
     console.log(`finalizando compra`);
     // Abrir notificación para elegir método de pago
     $('#notificacion-pago').modal('show');
 }
 
+//PAGAR
 function pagar() {
     // Obtener el método de pago seleccionado
     let metodoPago = document.getElementById('metodo-pago').value;
@@ -268,6 +290,7 @@ function pagar() {
     carrito.vaciarCarrito();
 }
 
+//CERRAMOS TODO
 function cerrarNotificacionCompra() {
     location.reload(true);
 }

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Carrito de compras</title>
+</head>
+
+<body>
+
+    <!--navbar-->
+    <div class="navbar navbar-expand-lg">
+        <div class="container">
+
+            <div class="logo">
+                <a href="index.html">
+                    <i class='bx bx-shopping-bag'></i>
+                    Mike<span>Store</span>
+                </a>
+            </div>
+            <nav>
+                <button class="navbar-toggler btn-men" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class='bx bx-menu' ></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul id="MenuItems" class="navbar-nav ms-auto">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#productos">Productos</a></li>
+                        <li><button type="button" class="custom-btn-carrito m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Ver carrito">
+                            <i class='bx bx-cart-add'></i>
+                            <span id="cantidad-productos-carrito">0</span>
+                        </button></li>
+                    </ul>
+                    
+                </div>
+            </nav>      
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-bs-backdrop="false" style="margin: 0; padding: 0; overflow-y: auto;">
+        <div class="modal-dialog modal-full-height modal-left"
+            style="width: 400px; height: 100vh; margin: 0; padding: 0; overflow-y: auto;">
+            <div class="modal-content" style="height: 100vh; overflow-y: auto;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Carrito de compras</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="carrito-contenedor">
+                        <!-- Aquí se mostrarán los productos del carrito -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" onclick="finalizar_compra()" class="btn btn-primary">
+                        <i class='bx bxs-package'></i> Finalizar compra
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificación para elegir método de pago -->
+<div id="notificacion-pago" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Elegir método de pago</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <select id="metodo-pago" class="form-select" required>
+                        <option value="" selected disabled>Seleccione metodo de pago</option>
+                        <option value="efectivo">Efectivo</option>
+                        <option value="tarjeta">Tarjeta de crédito</option>
+                        <option value="transferencia">Transferencia bancaria</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary" onclick="pagar()">OK, Pagar</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="notificacion-compra-contenedor"></div>
+
+    <section id="hero">
+        <h2>Descuentos Exclusivos</h2>
+        <h1>En nuestra selección de productos</h1>
+        <p>Aprovecha al máximo con cupones y hasta 70% de descuento!</p>
+        <a href="#productos">
+            <button class="custom-btn"><span>Comprar Ahora</span></button>
+        </a>
+    </section>
+
+
+    <div class="small-container" id="productos">
+        <div class="row row-2">
+            <h2>Productos</h2>
+
+        </div>
+
+        <div class="row" id="listaProductos"></div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+
+                <div class="footer-col-4">
+                    <h3>Enlaces útiles</h3>
+                    <ul>
+                        <li>Ofertas y promociones</li>
+                        <li>Novedades y noticias</li>
+                        <li>Política de devoluciones</li>
+                        <li>Contáctanos</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col-4">
+                    <div class="logo">
+                        <a href="index.html">
+                            <i class='bx bx-shopping-bag'></i>
+                            Mike<span>Store</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col-4">
+                    <h3>Síguenos</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Twitter</li>
+                        <li>Instagram</li>
+                        <li>YouTube</li>
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <p class="copyright">Copyright &copy; 2024 - Mike Store</p>
+        </div>
+    </div>
+
+    <!-- js for toggle menu -->
+    <script>
+        var MenuItems = document.getElementById('MenuItems');
+        MenuItems.style.maxHeight = '200px';
+
+        function menutoggle() {
+            if (MenuItems.style.maxHeight == '0px') {
+                MenuItems.style.maxHeight = '200px';
+            } else {
+                MenuItems.style.maxHeight = '0px';
+            }
+        }
+    </script>
+    <script src="./assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</body>
+
+</html>
